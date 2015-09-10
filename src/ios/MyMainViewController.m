@@ -223,12 +223,12 @@
         [CDVUserAgentUtil setUserAgent:self.userAgent lockToken:lockToken];
 
     // This is only for iOS 9 SDK
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
-    [self.wkWebView loadFileURL:URL allowingReadAccessToURL:URL];
-#else
+    if (!IsAtLeastiOSVersion(@"9.0")) {
+      [self.wkWebView loadFileURL:URL allowingReadAccessToURL:URL];
+    } else {
         NSURLRequest* appReq = [NSURLRequest requestWithURL:URL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0];
             [self.wkWebView loadRequest:appReq];
-#endif
+    }
 
     }];
 }
