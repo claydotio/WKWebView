@@ -223,12 +223,12 @@
         [CDVUserAgentUtil setUserAgent:self.userAgent lockToken:lockToken];
 
     // This is only for iOS 9 SDK
-    if (!IsAtLeastiOSVersion(@"9.0")) {
-      [self.wkWebView loadFileURL:URL allowingReadAccessToURL:URL];
-    } else {
+    // if (!IsAtLeastiOSVersion(@"9.0")) {
+    //   [self.wkWebView loadFileURL:URL allowingReadAccessToURL:URL];
+    // } else {
         NSURLRequest* appReq = [NSURLRequest requestWithURL:URL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0];
             [self.wkWebView loadRequest:appReq];
-    }
+    // }
 
     }];
 }
@@ -261,10 +261,10 @@
   }
 
   // iOS9 (runtime) compatibility
-  if (IsAtLeastiOSVersion(@"9.0")) {
-    NSString* unescapedURLString = [NSString stringWithFormat:@"file://%@/%@", self.wwwFolderName, self.startPage];
-    appURL = [NSURL URLWithString:[unescapedURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-  }
+  // if (IsAtLeastiOSVersion(@"9.0")) {
+  //   NSString* unescapedURLString = [NSString stringWithFormat:@"file://%@/%@", self.wwwFolderName, self.startPage];
+  //   appURL = [NSURL URLWithString:[unescapedURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+  // }
 
   // // Fix the iOS 5.1 SECURITY_ERR bug (CB-347), this must be before the webView is instantiated ////
 

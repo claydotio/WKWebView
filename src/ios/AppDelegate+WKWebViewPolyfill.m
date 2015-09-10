@@ -42,7 +42,7 @@ NSString* appDataFolder;
     appDataFolder = [[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByDeletingLastPathComponent];
 
     // webserver no longer needed for iOS 9, yay!
-    if (!IsAtLeastiOSVersion(@"9.0")) {
+    // if (!IsAtLeastiOSVersion(@"9.0")) {
       // Initialize Server environment variables
       NSString *directoryPath = myMainViewController.wwwFolderName;
       _webServer = [[GCDWebServer alloc] init];
@@ -64,7 +64,7 @@ NSString* appDataFolder;
       if (startWebServer) {
           [self startServer];
       }
-    }
+    // }
 
     // Update Swizzled ViewController with port currently used by local Server
     [myMainViewController setServerPort:_webServer.port];
@@ -79,12 +79,12 @@ NSString* appDataFolder;
                        if ([fileLocation hasPrefix:path]) {
                          fileLocation = [appDataFolder stringByAppendingString:request.URL.path];
                        }
-                       
+
                        fileLocation = [fileLocation stringByReplacingOccurrencesOfString:FileSchemaConstant withString:@""];
                        if (![[NSFileManager defaultManager] fileExistsAtPath:fileLocation]) {
                            return nil;
                        }
-                         
+
                        return [GCDWebServerFileResponse responseWithFile:fileLocation byteRange:request.byteRange];
                      }
    ];
