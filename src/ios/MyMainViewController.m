@@ -256,12 +256,14 @@
   if ([self.startPage rangeOfString:@"://"].location != NSNotFound) {
     appURL = [NSURL URLWithString:self.startPage];
   } else if ([self.wwwFolderName rangeOfString:@"://"].location != NSNotFound) {
-    appURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", self.wwwFolderName, self.startPage]];
+    NSString* unescapedURLString = [NSString stringWithFormat:@"%@/%@", self.wwwFolderName, self.startPage];
+    appURL = [NSURL URLWithString: [unescapedURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
   }
 
   // iOS9 (runtime) compatibility
   if (IsAtLeastiOSVersion(@"9.0")) {
-    appURL = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@/%@", self.wwwFolderName, self.startPage]];
+    NSString* unescapedURLString = [NSString stringWithFormat:@"file://%@/%@", self.wwwFolderName, self.startPage];
+    appURL = [NSURL URLWithString:[unescapedURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
   }
 
   // // Fix the iOS 5.1 SECURITY_ERR bug (CB-347), this must be before the webView is instantiated ////
